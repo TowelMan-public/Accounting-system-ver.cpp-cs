@@ -73,8 +73,10 @@ namespace kaikei0_c
         /*送信*/
         public static void Send(string date)
         {
+            System.Text.Encoding enc = System.Text.Encoding.UTF8;
+            byte[] sdb = enc.GetBytes(date);
             //送りたいデータのサイズの送信
-            m_Send(date.Length.ToString("C").Substring(1, date.Length.ToString("C").Length - 1));
+            m_Send(sdb.Length.ToString("C").Substring(1, sdb.Length.ToString("C").Length - 1));
             m_Get();
             //データの送信
             m_Send(date);
