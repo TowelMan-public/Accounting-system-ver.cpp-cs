@@ -1,4 +1,5 @@
 #include "DB.h"
+#include "Encode.h"
 //////データベース関係のlibファイルのロード////////
 #pragma comment(lib,"ws2_32.lib")
 #pragma comment(lib,"lib64\\vs14\\mysqlcppconn8.lib")
@@ -18,17 +19,8 @@ namespace DB {
 	static sql::Connection* con = nullptr;
 }
 
-
-std::string wide_to_utf8_cppapi(const std::wstring& wstr){
-	if (wstr.empty()) return std::string();
-	int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
-	std::string strTo(size_needed, 0);
-	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
-	return strTo;
-}
-
 DB::DB::DB(void){
-	FileOut = (MyTools::TString)MyTools::format((std::wstring)(MyTools::TString)DB_FILE_OUT, (std::wstring)(MyTools::TString)DB_FILE_PASS);
+	sqlStr = "";
 	columnType = "";
 }
 
@@ -39,10 +31,10 @@ void DB::DB::RunSql(void){
 			delete res;
 			res = nullptr;
 		}
-		res = stmt->executeQuery( wide_to_utf8_cppapi( (std::wstring)(MyTools::TString)sqlStr ).c_str() );
+		res = stmt->executeQuery(MyTools::Encode::ShiftJis::UTF8(sqlStr).c_str());
 	}
 	else
-		stmt->execute( wide_to_utf8_cppapi( (MyTools::TString)sqlStr ).c_str() );
+		stmt->execute(MyTools::Encode::ShiftJis::UTF8(sqlStr).c_str());
 
 	sqlStr = "";//初期化
 }
@@ -59,7 +51,7 @@ std::string DB::DB::GetResultStr(void){
 		res->next();
 		for (int i = 0; i < columnType.length(); i++) {
 			if (columnType[i] == 's' || columnType[i] == 'd') 
-				outStr += MyTools::UTF8toSJIS((std::string)(res->getString(i + 1).c_str())) + ",";
+				outStr += MyTools::Encode::UTF8::ShiftJis(res->getString(i + 1)) + ",";
 			else if (columnType[i] == 'i')
 				outStr += std::to_string(res->getInt(i+1)) + ",";
 			else 
@@ -106,11 +98,12 @@ bool DB::DB::GetPassword(std::string userName, std::string password) {
 	bool result;
 	sqlStr = "SELECT pass FROM useri WHERE id='%ls'";
 	sqlStr = (std::string)(MyTools::TString) MyTools::format( (MyTools::TString)sqlStr, ( (std::wstring)(MyTools::TString)userName ).c_str() );
-	res = stmt->executeQuery( wide_to_utf8_cppapi( (MyTools::TString)sqlStr ).c_str() );
+	res = stmt->executeQuery(MyTools::Encode::ShiftJis::UTF8(sqlStr).c_str());
 	if (res->next())
 		result = res->getString(1).c_str() == password;
 	else
 		result = false;
+	sqlStr = "";
 	res->close();
 	delete res;
 	res = nullptr;

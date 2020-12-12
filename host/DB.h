@@ -1,5 +1,4 @@
 #pragma once
-#include "Hnet.h"
 #include "TString.h"
 #include <iostream>
 #include <string>
@@ -19,15 +18,12 @@
 ///////////データベースについての定義/////////////
 const std::string DB_USER_NAME = "root";
 const std::string DB_USER_PASSWORD = "root";
-const std::string DB_FILE_OUT = " INTO OUTFILE '%ls' FILEDS TERMINATED BY ',' ";
-const std::string DB_FILE_PASS = "c://data//out.csv";
 
 namespace DB {
 	class DB {
 	protected:
 		std::string sqlStr;
 		std::string columnType;
-		std::string FileOut;
 	protected:
 		void RunSql(void);
 		std::string GetResultStr(void);

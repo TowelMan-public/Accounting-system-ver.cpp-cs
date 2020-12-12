@@ -15,7 +15,7 @@ Kaikei::~Kaikei() {//終了処理
 void Kaikei::Run(void) {//エントリーポイント
 	try {
 		std::string meg;
-		MyTools::TString bafIpAddress;
+		std::string bafIpAddress;
 
 		while (true) {
 
@@ -46,7 +46,7 @@ std::string Kaikei::GetRequest() {//リクエストの取得等
 	meg = hnet->Get();
 	//正常なやつ
 	if (IsLogin() || meg.find("LOGIN") != -1) {
-		return MyTools::UTF8toSJIS(meg);
+		return meg;
 	}
 	else {//拒否るやつ
 		hnet->CutEnd();

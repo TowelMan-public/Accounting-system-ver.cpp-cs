@@ -1,46 +1,15 @@
 #include "TString.h"
+#include <locale>
+#include <vector>
+#include "Encode.h"
 
 namespace MyTools {
 	/*文字列の変換(std::string、std::wstring 間)*/
-	std::string WStringToString(std::wstring istr) {
-		int size = WideCharToMultiByte(CP_OEMCP, 0, istr.c_str(), -1, (char*)NULL, 0, NULL, NULL);
-		char* ostr = new char[size];
-		WideCharToMultiByte(CP_OEMCP, 0, istr.c_str(), -1, ostr, size, NULL, NULL);
-		std::string rtn = ostr;
-		delete[] ostr;
-		return rtn;
+	std::string TString::WStringToString(std::wstring src) {
+		return Encode::Unicode::ShiftJis(src);
 	}
-	std::wstring StringToWString(std::string istr) {
-		size_t size;
-		wchar_t* ostr = new wchar_t[istr.length() + 2];
-		mbstowcs_s(&size, ostr, istr.length() + 1, istr.c_str(), _TRUNCATE);
-		std::wstring rtn = ostr;
-		delete[] ostr;
-		return rtn;
-	}
-
-#define CP_SJIS 932
-	std::string UTF8toSJIS(const std::string strUTF8)
-	{
-		// UTF-8 → UNICODE
-		const int sizeUNICODE = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);
-		wchar_t* pUNICODE = new wchar_t[sizeUNICODE];
-		MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, pUNICODE, sizeUNICODE);
-
-		// UNICODE → Shift_JIS
-		const int sizeSJIS = WideCharToMultiByte(CP_SJIS, 0, pUNICODE, -1, NULL, 0, NULL, NULL);
-		char* pSJIS = new char[sizeSJIS];
-		WideCharToMultiByte(CP_SJIS, 0, pUNICODE, -1, pSJIS, sizeSJIS, NULL, NULL);
-
-		std::string strSJIS(pSJIS);
-
-		// バッファ削除
-		delete[] pSJIS;
-		pSJIS = NULL;
-		delete[] pUNICODE;
-		pUNICODE = NULL;
-
-		return strSJIS;
+	std::wstring TString::StringToWString(std::string src) {
+		return Encode::ShiftJis::Unicode(src);
 	}
 
 	/*TStringのコンストラクタたち*/

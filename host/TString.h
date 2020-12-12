@@ -15,13 +15,6 @@
 #endif
 
 namespace MyTools {
-
-	//文字列変換
-	std::string WStringToString(std::wstring istr);
-	std::wstring StringToWString(std::string istr);
-
-	std::string UTF8toSJIS(const std::string strUTF8);
-
 	//フォーマット
 	template <typename ... Args>
 	std::MY_STRING_0028 format(const std::MY_STRING_0028 fmt, Args ... args)
@@ -31,9 +24,22 @@ namespace MyTools {
 		return rtn.GetBuffer();
 	}
 
+	template <typename CONVERTED>
+	std::MY_STRING_0028 to_string(CONVERTED val)
+	{
+#ifdef _UNICODE
+		return std::to_wstring(val);
+#else
+		return std::to_string(val);
+#endif
+	}
+
 	class TString : public std::MY_STRING_0028 {
 		//コンストラクタの継承（親クラスのやつを引き継ぐ）
 		using std::MY_STRING_0028::MY_STRING_0028;
+	public://静的関数　文字列変換
+		static std::string WStringToString(std::wstring istr);
+		static std::wstring StringToWString(std::string istr);
 	public:
 		//追加するコンストラクタ
 		TString(void);

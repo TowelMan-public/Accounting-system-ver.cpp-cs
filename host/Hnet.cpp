@@ -1,16 +1,8 @@
 #include "Hnet.h"
+#include <vector>
 #pragma comment(lib,"ws2_32.lib")
 
 namespace MyTools {
-
-	std::string wide_to_utf8_cppapi(const std::wstring& wstr) {
-		if (wstr.empty()) return std::string();
-		int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
-		std::string strTo(size_needed, 0);
-		WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
-		return strTo;
-	}
-
 	Hnet::Hnet(bool IsInit, int timeout, int portnum) {
 		portNumber = portnum;
 		timeOut = timeout;
@@ -48,7 +40,7 @@ namespace MyTools {
 			return false;
 		}
 		//タイムアウトの設定
-		//setsockopt(FD_accept, SOL_SOCKET, SO_SNDTIMEO, timeo, sizeof(timeo));
+		setsockopt(FD_accept, SOL_SOCKET, SO_SNDTIMEO, timeo, sizeof(timeo));
 		//ソケットに通信待ちを設定する 5はバックログ
 		ret_code = listen(FD_accept, 5);
 		if (ret_code == -1) {
@@ -59,17 +51,8 @@ namespace MyTools {
 		return true;
 	}
 
-	bool Hnet::Accept(TString& pass) {
-		u_long val;//ブロッキングのための変数
-		//ブロッキングを外す
-		///val = 1;
-		//ioctlsocket(FD_accept, FIONBIO, &val);
-		//接続の受付
-		//FD_GorS = accept(FD_accept, (sockaddr*)&sin_clim, &socklen);
+	bool Hnet::Accept(std::string& pass) {
 		FD_GorS = accept(FD_accept, (sockaddr*)&sin_clim, &socklen);
-		//ブロッキングにする
-		//val = 0;
-		//ioctlsocket(FD_accept, FIONBIO, &val);
 		//通信要求がなければ終了
 		if (FD_GorS == -1)
 			return false;
@@ -79,48 +62,48 @@ namespace MyTools {
 		return true;
 	}
 
-	bool Hnet::Send(TString str) {
-		//TODO エラー判定
+	bool Hnet::Send(std::string str) {
+		//文字コードを通信用のUTF-8に変更
+		std::string strUtf8 = MyTools::Encode::ShiftJis::UTF8(str);
 		//データサイズの送信
-		this->m_Send(std::to_string(str.length()));
+		this->m_Send(std::to_string(strUtf8.length()));
 		this->m_Get();
 		//データの送信
-		this->m_Send(str);
+		this->m_Send(strUtf8);
 		this->m_Get();
 		return true;
 	}
 
-	TString Hnet::Get() {
-		//TODO エラー判定
-		TString num, date;
+	std::string Hnet::Get() {
+		std::string num, date;
 		int size;
 		//データサイズの取得
 		num = this->m_Get(4);
 		this->m_Send(NetMeg::ANS_SUCCESS);
-		size = atoi(((std::string)num).c_str());
+		size = atoi(num.c_str());
 		//データの取得
 		date = this->m_Get(size);
 		this->m_Send(NetMeg::ANS_SUCCESS);
 		return date;
 	}
 
-	TString Hnet::m_Get(int size) {
+	std::string Hnet::m_Get(int size) {
 		char* baf = new char[size];//受信用バッファー	
 		int s;
 		//受信
 		s = recv(FD_GorS, baf, size, NULL);
 		int error = WSAGetLastError();
 		std::string str = baf;
-		if (s == -1 || str.substr(0, s) == "")return NetMeg::ANS_ERROR;
 		delete[] baf;
-		return MyTools::UTF8toSJIS(str.substr(0, s));
+		if (s == -1 || str.substr(0, s) == "")return NetMeg::ANS_ERROR;
+		return MyTools::Encode::UTF8::ShiftJis(str.substr(0, s));
 	}
 
-	bool Hnet::m_Send(TString date) {
+	bool Hnet::m_Send(std::string date) {
 		const int size = date.length();//今回送るデータのサイズ
-		std::string strCheck = ((std::string)(MyTools::TString)date).c_str();
+		std::string strCheck = (date).c_str();
 		//送信
-		if (send(FD_GorS, ((std::string)(MyTools::TString)date).c_str(), size, 0) >= size)
+		if (send(FD_GorS, (date).c_str(), size, 0) >= size)
 			return true;//成功
 		else return false;//失敗
 	}
