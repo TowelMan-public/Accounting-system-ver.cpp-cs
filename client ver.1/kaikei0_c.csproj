@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E769AEF-4D44-441E-A02C-75F4382DD254}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>kaikei0_c</RootNamespace>
+    <AssemblyName>kaikei0_c</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Office.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cnet.cs" />
+    <Compile Include="DateGridBaf.cs" />
+    <Compile Include="Delete.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Delete.Designer.cs">
+      <DependentUpon>Delete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mian.Designer.cs">
+      <DependentUpon>Mian.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comf.Designer.cs">
+      <DependentUpon>Comf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InStart.Designer.cs">
+      <DependentUpon>InStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OutStart.Designer.cs">
+      <DependentUpon>OutStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutWhere.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OutWhere.Designer.cs">
+      <DependentUpon>OutWhere.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InCustomer.Designer.cs">
+      <DependentUpon>InCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InJunl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InJunl.Designer.cs">
+      <DependentUpon>InJunl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InKeihi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InKeihi.Designer.cs">
+      <DependentUpon>InKeihi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InUnpaid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InUnpaid.Designer.cs">
+      <DependentUpon>InUnpaid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InUriage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InUriage.Designer.cs">
+      <DependentUpon>InUriage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Control.cs" />
+    <Compile Include="UpdateCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateCustomer.Designer.cs">
+      <DependentUpon>UpdateCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateJunl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateJunl.Designer.cs">
+      <DependentUpon>UpdateJunl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateKeihi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateKeihi.Designer.cs">
+      <DependentUpon>UpdateKeihi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="updateStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="updateStart.Designer.cs">
+      <DependentUpon>updateStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateUnpaid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateUnpaid.Designer.cs">
+      <DependentUpon>UpdateUnpaid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateUriage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateUriage.Designer.cs">
+      <DependentUpon>UpdateUriage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Delete.resx">
+      <DependentUpon>Delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mian.resx">
+      <DependentUpon>Mian.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comf.resx">
+      <DependentUpon>Comf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InStart.resx">
+      <DependentUpon>InStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OutStart.resx">
+      <DependentUpon>OutStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OutWhere.resx">
+      <DependentUpon>OutWhere.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InCustomer.resx">
+      <DependentUpon>InCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InJunl.resx">
+      <DependentUpon>InJunl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InKeihi.resx">
+      <DependentUpon>InKeihi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InUnpaid.resx">
+      <DependentUpon>InUnpaid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InUriage.resx">
+      <DependentUpon>InUriage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UpdateCustomer.resx">
+      <DependentUpon>UpdateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateJunl.resx">
+      <DependentUpon>UpdateJunl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateKeihi.resx">
+      <DependentUpon>UpdateKeihi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="updateStart.resx">
+      <DependentUpon>updateStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateUnpaid.resx">
+      <DependentUpon>UpdateUnpaid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateUriage.resx">
+      <DependentUpon>UpdateUriage.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ExcelAdaptorLib">
+      <Guid>{7BCEDF81-6A82-448F-9A27-63726D499727}</Guid>
+      <VersionMajor>15</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VSTOEE100">
+      <Guid>{AAB9C2AA-6036-4AE1-A41C-A40AB7F39520}</Guid>
+      <VersionMajor>10</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WordAdapterLib">
+      <Guid>{CB7A8A3C-917E-4E4C-B731-667A63EB2803}</Guid>
+      <VersionMajor>12</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
